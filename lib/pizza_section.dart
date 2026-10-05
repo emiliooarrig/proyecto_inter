@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 
-import 'pizza.dart';
 import 'theme.dart';
 
 class PizzaSection extends StatelessWidget {
-  const PizzaSection({super.key, required this.pizza, required this.number});
+  const PizzaSection({
+    super.key,
+    required this.number,
+    required this.name,
+    required this.tagline,
+    required this.description,
+    required this.image,
+  });
 
-  final Pizza pizza;
   final int number;
+  final String name;
+  final String tagline;
+  final String description;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +36,14 @@ class PizzaSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(child: Center(child: _PizzaImage(pizza.image))),
+          Expanded(child: Center(child: _PizzaImage(image))),
           const SizedBox(height: 24),
-          _PizzaText(pizza: pizza, number: number),
+          _PizzaText(
+            number: number,
+            name: name,
+            tagline: tagline,
+            description: description,
+          ),
         ],
       ),
     );
@@ -42,12 +56,17 @@ class PizzaSection extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          _PizzaImage(pizza.image),
+          _PizzaImage(image),
           const SizedBox(width: 32),
           Expanded(
             child: Center(
               child: SingleChildScrollView(
-                child: _PizzaText(pizza: pizza, number: number),
+                child: _PizzaText(
+                  number: number,
+                  name: name,
+                  tagline: tagline,
+                  description: description,
+                ),
               ),
             ),
           ),
@@ -75,10 +94,17 @@ class _PizzaImage extends StatelessWidget {
 }
 
 class _PizzaText extends StatelessWidget {
-  const _PizzaText({required this.pizza, required this.number});
+  const _PizzaText({
+    required this.number,
+    required this.name,
+    required this.tagline,
+    required this.description,
+  });
 
-  final Pizza pizza;
   final int number;
+  final String name;
+  final String tagline;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +113,7 @@ class _PizzaText extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          '0$number  —  ${pizza.tagline.toUpperCase()}',
+          '0$number  —  ${tagline.toUpperCase()}',
           style: const TextStyle(
             color: FiammaColors.flame,
             fontSize: 12,
@@ -97,7 +123,7 @@ class _PizzaText extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Text(
-          pizza.name,
+          name,
           style: const TextStyle(
             color: FiammaColors.cream,
             fontFamily: 'serif',
@@ -109,7 +135,7 @@ class _PizzaText extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         Text(
-          pizza.description,
+          description,
           style: TextStyle(
             color: FiammaColors.cream.withValues(alpha: 0.72),
             fontSize: 15,
